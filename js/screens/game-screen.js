@@ -1,4 +1,4 @@
-import { Point, Sprite, extras } from 'pixi.js'
+import { Point, extras } from 'pixi.js'
 
 import Screen from './screen'
 import Vector2 from '../lib/math/vector2'
@@ -6,8 +6,8 @@ import Vector2 from '../lib/math/vector2'
 import Player from './game/mobs/player'
 import Planet from './game/objects/planet'
 
-const MIN_PLANET_SIZE = 100
-const MAX_PLANET_SIZE = 200
+const MIN_PLANET_SIZE = 500
+const MAX_PLANET_SIZE = 2000
 
 export default class GameScreen extends Screen {
   constructor (...args) {
@@ -52,6 +52,19 @@ export default class GameScreen extends Screen {
 
     this._background.tilePosition.x = -this._cameraPosition.x % 512
     this._background.tilePosition.y = -this._cameraPosition.y % 512
+  }
+
+  getClosestPlanet (position) {
+    let shortestDistance = Infinity
+    let closestPlanet
+    this._planets.forEach(planet => {
+      const distanceToSurface = planet.getDistanceToSurface(position)
+      if (distanceToSurface < shortestDistance) {
+        shortestDistance = distanceToSurface
+        closestPlanet = planet
+      }
+    })
+    return closestPlanet
   }
 
   tick (delta) {

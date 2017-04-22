@@ -9,9 +9,14 @@
   "scripts": {
     "start": "webpack-dev-server"
   },
+  "standard": {
+    "parser": "babel-eslint"
+  },
   "dependencies": {
     "babel-core": "^6.24.1",
+    "babel-eslint": "^7.2.3",
     "babel-loader": "^6.4.1",
+    "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-preset-es2015": "^6.24.1",
     "pixi.js": "^4.5.0",
     "stats.js": "^0.17.0",
