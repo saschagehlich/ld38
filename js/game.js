@@ -178,6 +178,7 @@ class Game {
    */
   _loadAssets (loader) {
     loader.add('sprites', 'assets/sprites.json')
+    loader.add('space', 'assets/space/space.png')
   }
 
   // -------------------------------------------------------------------------- GETTERS

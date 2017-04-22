@@ -1,4 +1,4 @@
-import { Point } from 'pixi.js'
+import { Point, Sprite, extras } from 'pixi.js'
 
 import Screen from './screen'
 import Vector2 from '../lib/math/vector2'
@@ -12,6 +12,10 @@ const MAX_PLANET_SIZE = 200
 export default class GameScreen extends Screen {
   constructor (...args) {
     super(...args)
+
+    const { width, height } = this._game
+    this._background = new extras.TilingSprite(this._game.resources.space.texture, width, height)
+    this.addChild(this._background)
 
     this.spaceFriction = 0.01
     this._cameraPosition = new Vector2(0, 0)
@@ -42,6 +46,12 @@ export default class GameScreen extends Screen {
     const { width, height } = this._game
     position.add(width / 2, height / 2)
     this.position = new Point(position.x, position.y)
+
+    this._background.position.x = this._cameraPosition.x - width / 2
+    this._background.position.y = this._cameraPosition.y - height / 2
+
+    this._background.tilePosition.x = -this._cameraPosition.x % 512
+    this._background.tilePosition.y = -this._cameraPosition.y % 512
   }
 
   tick (delta) {
