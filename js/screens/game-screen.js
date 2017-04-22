@@ -6,25 +6,26 @@ import Vector2 from '../lib/math/vector2'
 import Player from './game/mobs/player'
 import Planet from './game/objects/planet'
 
-const MIN_PLANET_SIZE = 300
-const MAX_PLANET_SIZE = 500
+const MIN_PLANET_SIZE = 100
+const MAX_PLANET_SIZE = 200
 
 export default class GameScreen extends Screen {
   constructor (...args) {
     super(...args)
 
+    this.spaceFriction = 0.01
     this._cameraPosition = new Vector2(0, 0)
     this._planets = []
 
     this._generatePlanets()
 
-    this._player = new Player(this._game)
+    this._player = new Player(this._game, this)
     this._player.onPlanet = this._planets[0]
     this.addChild(this._player)
   }
 
   _generatePlanets () {
-    for (let i = 0; i < 100; i++) {
+    for (let i = 0; i < 10; i++) {
       const radius = MIN_PLANET_SIZE + (MAX_PLANET_SIZE - MIN_PLANET_SIZE) * Math.random()
       const planet = new Planet(this._game, radius)
       this._planets.push(planet)

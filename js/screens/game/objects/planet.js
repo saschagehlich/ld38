@@ -11,7 +11,7 @@ export default class Planet extends Container {
     this._game = game
     this.radius = radius
 
-    this.position = new Point(Math.random() * 50000, Math.random() * 50000)
+    this.position = new Point(Math.random() * 5000, Math.random() * 5000)
 
     this._graphics = new Graphics()
     this._graphics.beginFill(0x555555, 1)
@@ -19,6 +19,7 @@ export default class Planet extends Container {
     this._graphics.endFill()
     this.addChild(this._graphics)
 
+    this.maxAltitude = NO_GRAVITY_ALTITUDE
     this.gravity = new Vector2(0, -1800)
   }
 
@@ -30,11 +31,9 @@ export default class Planet extends Container {
     let multiplier
     if (altitude < FULL_GRAVITY_ALTITUDE) {
       multiplier = 1
-    } else if (altitude > NO_GRAVITY_ALTITUDE) {
-      multiplier = 0
     } else {
       const lessGravityZone = NO_GRAVITY_ALTITUDE - FULL_GRAVITY_ALTITUDE
-      multiplier = (altitude - FULL_GRAVITY_ALTITUDE) / lessGravityZone
+      multiplier = Math.max(0, 1 - ((altitude - FULL_GRAVITY_ALTITUDE) / lessGravityZone))
     }
 
     return this.gravity.clone().multiply(multiplier)
