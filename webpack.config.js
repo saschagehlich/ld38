@@ -6,6 +6,7 @@ module.exports = {
     path: path.resolve(__dirname, 'build'),
     filename: 'game.js'
   },
+  devtool: 'eval',
   module: {
     rules: [
       {
