@@ -1,0 +1,10 @@
+.DS_Store
+*~
+node_modules
+*.sublime-workspace
+.idea
+.vscode
+.tmp
+npm-debug.log*
+build/game.js
+build/assets/sprites.*
